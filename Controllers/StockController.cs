@@ -11,11 +11,9 @@ namespace WebAPI.Controllers
     [Route("api/stock")]
     public class StockController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
         private readonly IStockRepository _stockRepo;
         public StockController(ApplicationDBContext context, IStockRepository stockRepository)
         {
-            _context = context;
             _stockRepo = stockRepository;
         }
 
@@ -27,7 +25,7 @@ namespace WebAPI.Controllers
             return Ok(stocksDto);
         }
 
-        [HttpGet("id/{id:int}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using WebAPI.Dtos.Comment;
 
 namespace WebAPI.Dtos.Stock
 {
@@ -11,5 +11,6 @@ namespace WebAPI.Dtos.Stock
         public decimal LastDiv { get; set; }
         public string Industry { get; set; } = string.Empty;
         public long MarketCap { get; set; }
+        public List<CommentDto> Comments { get; set; }
     }
 }

@@ -24,12 +24,18 @@ namespace WebAPI
             //    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             //});
 
+            builder.Services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
             builder.Services.AddDbContext<ApplicationDBContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             builder.Services.AddScoped<IStockRepository, StockRepository>();
+            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
             var app = builder.Build();
 
