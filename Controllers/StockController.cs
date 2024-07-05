@@ -44,14 +44,24 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var stockModel = stockDto.ToStockCreateDto();
             await _stockRepo.CreateAsync(stockModel);
-            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockDto.ToStockCreateDto());
+            return CreatedAtAction(nameof(GetById), new { id = stockModel }, stockDto.ToStockCreateDto());
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateStockRequestDto updateStockDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var stock = await _stockRepo.UpdateAsync(id, updateStockDto);
             if (stock == null)
             {
@@ -61,9 +71,14 @@ namespace WebAPI.Controllers
             return Ok(stock.ToStockDto());
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var stock = await _stockRepo.DeleteAsync(id);
             if (stock == null)
             {
