@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebAPI.DB;
 using WebAPI.Dtos.Stock;
+using WebAPI.Helpers;
 using WebAPI.Interfaces;
 using WebAPI.Mappers;
 
@@ -18,9 +19,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
-            var stocks = await _stockRepo.GetAllAsync();
+            var stocks = await _stockRepo.GetAllAsync(query);
             var stocksDto = stocks.Select(s => s.ToStockDto());
             return Ok(stocksDto);
         }
