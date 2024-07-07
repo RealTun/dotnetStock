@@ -7,6 +7,7 @@ using WebAPI.DB;
 using WebAPI.Interfaces;
 using WebAPI.Models;
 using WebAPI.Repositories;
+using WebAPI.Services;
 
 namespace WebAPI
 {
@@ -72,6 +73,7 @@ namespace WebAPI
 
             builder.Services.AddScoped<IStockRepository, StockRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
             var app = builder.Build();
 
