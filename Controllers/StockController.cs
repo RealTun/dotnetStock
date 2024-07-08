@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
 
             var stockModel = stockDto.ToStockCreateDto();
             await _stockRepo.CreateAsync(stockModel);
-            return CreatedAtAction(nameof(GetById), new { id = stockModel }, stockDto.ToStockCreateDto());
+            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockDto.ToStockCreateDto());
         }
 
         [HttpPut("{id:int}")]
