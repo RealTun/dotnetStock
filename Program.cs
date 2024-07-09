@@ -117,6 +117,13 @@ namespace WebAPI
 
             app.UseHttpsRedirection();
 
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                //.WithOrigins("https://localhost:44351)
+                .SetIsOriginAllowed(origin => true));
+
             app.UseAuthentication();
             app.UseAuthorization();
 
